@@ -24,7 +24,11 @@ class Post extends Model
 
     // Enable Mass Assignment (assigning multiple values during creation of data -- see example in route file)
     protected $fillable = [
-        'title',
-        'content'
+        'title', 'content'
     ];
+
+    // One-to-One Relationship to User
+    public function user(){
+        return $this->belongsTo('App\User');
+    }
 }

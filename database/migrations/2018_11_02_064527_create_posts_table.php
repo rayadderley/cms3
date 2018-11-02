@@ -8,6 +8,8 @@ use Illuminate\Database\Migrations\Migration;
  * php artisan migrate (push the changes)
  * php artisan migrate:rollback (rollback to the last pushed migration)
  * 
+ * OTHER WAY TO CREATE MODEL & DIRECTLY MIGRATE IT: php artisan make:model Role -m (will create Role Model & Migration file)
+ * 
  * NOTES: ADDING COLUMN TO EXISTING TABLE
  * php artisan make:migration add_is_admin_column_to_posts_tables --table="posts" (making new migration to add the column)
  * 

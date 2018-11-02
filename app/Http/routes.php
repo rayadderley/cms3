@@ -1,5 +1,7 @@
 <?php
 use App\Post; // Use the Post Model to enable eloquent.
+use App\User; // Use the User Model to enable eloquent.
+use App\Role;
 
 /*
 |--------------------------------------------------------------------------
@@ -168,5 +170,64 @@ Route::get('/findwhere', function(){
 /**
  * ----------------------------------------
  * END ELOQUENT EXAMPLE
+ * ----------------------------------------
+ */
+
+
+ /**
+ * ----------------------------------------
+ * END ELOQUENT RELATIONSHIP
+ * ----------------------------------------
+ */
+
+ // Use App/User first at the file header, and access the post of user by ID given.
+ Route::get('/user/{id}/post', function($id){
+    // Return one result as this is set as <hasOne Post> in UserModel
+    return User::find($id)->post->content; // Calling for post() function
+ });
+
+
+ // Inverse hasOne relationship from Post to User (pulling Post from User information) -- need to setup belongTo in Post model.
+ Route::get('/posts/{id}/user', function($id){
+    // Return the user from user information
+    return Post::find($id)->user->name;
+ });
+
+ // One-To-Many relationship that calls for posts() function in User Model
+ Route::get('/allposts', function(){
+    $user = User::find(1);
+
+    foreach($user->posts as $post){
+        echo $post->title . "<br/>";
+    }
+ });
+
+ // Get the Role of a User (Many to Many Relationship) - One User Has Many Role, One Role Has Many User
+ Route::get('/user/{id}/role', function($id){
+    $user = User::find($id);
+
+    $user = User::find($id)->roles()->orderBy('id','desc')->get(); // Use roles() function in User Model
+
+    return $user;
+
+    foreach($user->roles as $role){
+        return $role->name;
+    }
+ });
+
+ Route::get('/role/{id}/user', function($id){
+    $role = Role::find($id);
+    
+    foreach($role->users as $user){
+        return $user->name;
+    }
+
+ });
+
+
+
+ /**
+ * ----------------------------------------
+ * END ELOQUENT RELATIONSHIP EXAMPLE
  * ----------------------------------------
  */
