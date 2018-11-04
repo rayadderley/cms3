@@ -1,0 +1,24 @@
+1. install using git cmd
+
+    composer create-project --prefer-dist laravel/laravel projectname 5.2.29 // This is for installing ver 5.2
+    
+2. Check whether the Laravel Project installation is successful or not by going to localhost/projectname/public using browser
+
+3. Run Notepad as Administrator
+    
+    Go to C:/Windows/System32/drivers/etc and edit hosts file
+    At the bottom most line add another line for the name of the site: 
+        127.0.0.1 onetoone.test
+    Save
+
+    Go to C:/xampp/apache/conf/extra and edit httpd-vhosts.conf
+    
+    Add new line:
+
+        <VirtualHost *:80>
+            DocumentRoot "C:/xampp/htdocs/onetoone/public"
+            ServerName onetoone.test
+        </VirtualHost>
+    Save
+
+4. Restart Apache Server & you can run using onetoone.test in the browser

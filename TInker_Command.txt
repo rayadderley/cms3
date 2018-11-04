@@ -1,0 +1,42 @@
+1. Start Tinker with: php artisan tinker
+2. Create New Post:
+    
+    $post = App\Post::create(['title'=>'Title 3', 'content'=>'Content 3'])
+
+3. Step by Step on Tinker:
+    
+    $post = new App\Post // Create New Object
+    $post->title = "This is new title from object" // Create New Title from object (not saved)
+    $post->content = "This is new content form object" // Create New Content for object (not saved)
+    $post->save() //  Save the object created to database
+    $post // Check the object content
+
+4. Finding specific Post
+    
+    $post = App\Post::find(1)
+    $post = App\Post::where('id', 1)->first(); OR $post = App\Post::whereId(1);
+
+5. Updating column using Tinker:
+    
+    $post = App\Post::find(3) // Find specific Post with ID = 3
+    $post->title = "Updated Title 3" // Assign new value for title of Post ID = 3
+    $post->content = "Updated  Content 3" // Assign new value for content of Post ID = 3
+    $post->save() // Save the update data into the database
+
+6. Delete row from database
+
+    $post = App\Post::find(3) // Find the Post that you wanted to delete from database
+    $post->delete() // To delete data (soft delete)
+
+    To Permenantly delete:
+
+    $post = App\Post::onlyTrashed()
+    $post->forceDelete()
+
+7. Looking for Relationship between Table/Model in Tinker
+
+    
+
+4. exit // to exit the tinker UI
+
+
