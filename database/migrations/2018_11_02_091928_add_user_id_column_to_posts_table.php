@@ -14,7 +14,7 @@ class AddUserIdColumnToPostsTable extends Migration
     {
         Schema::table('posts', function (Blueprint $table) {
             // Add column user_id as a FK in the posts table
-            $table->integer('user_id')->unsigned(); // positive numbers only
+            // $table->integer('user_id')->unsigned(); // positive numbers only (commented later on because no need. Use Polymorphic Relationship)
         });
     }
 

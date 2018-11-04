@@ -2,6 +2,7 @@
 use App\Post; // Use the Post Model to enable eloquent.
 use App\User; // Use the User Model to enable eloquent.
 use App\Role;
+use App\Country;
 
 /*
 |--------------------------------------------------------------------------
@@ -215,6 +216,7 @@ Route::get('/findwhere', function(){
     }
  });
 
+ // Inverse Relationship of Many-To-Many (Role to User) - need to create users() function in Role Model.
  Route::get('/role/{id}/user', function($id){
     $role = Role::find($id);
     
@@ -222,6 +224,26 @@ Route::get('/findwhere', function(){
         return $user->name;
     }
 
+ });
+
+ // Accessing the Bridge/Pivot table
+ // Need to include withPivot in User Model if you want to access the Pivot table.
+ Route::get('/user/pivot', function(){
+    $user = User::find(1);
+
+    foreach($user->roles as $role){
+        echo $role->pivot->created_at;
+    }
+ });
+
+ // THROUGH RELATION - Getting information about Post from Country. Country->User->Post
+ Route::get('/user/country', function(){
+    // Searching for Country(1) = Malaysia 
+    $country = Country::find(1);
+    
+    foreach($country->posts as $post){ // Using posts() function in Country Model
+        echo $post->title.'<br/>';
+    }
  });
 
 

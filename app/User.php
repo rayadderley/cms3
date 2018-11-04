@@ -44,6 +44,11 @@ class User extends Authenticatable
      * Role has many User - that is why belongsToMany here
      */
     public function roles(){
-        return $this->belongsToMany('App\Role');
+        // Following the Name Convention, no need to set parameter
+        return $this->belongsToMany('App\Role')->withPivot('created_at'); // Need to withPivot right here if you want to access the Pivot table.
+        
+        // With different table name (not following the convention), you can setup it in the parameter of belongsToMany like this:
+        // eg return $this->belongsToMany('App\Role', 'pivot_table_name', 'foreign_key_in_pivot_table', 'foreign_key_referring_to_other_table');
+        // eg return $this->belongsToMany('App\Role', 'user_roles', 'user_id', 'role_id');
     }
 }
