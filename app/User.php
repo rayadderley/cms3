@@ -51,4 +51,9 @@ class User extends Authenticatable
         // eg return $this->belongsToMany('App\Role', 'pivot_table_name', 'foreign_key_in_pivot_table', 'foreign_key_referring_to_other_table');
         // eg return $this->belongsToMany('App\Role', 'user_roles', 'user_id', 'role_id');
     }
+    
+    // Used for Polymorphic relationship (referring to Photo)
+    public function photos(){
+        return $this->morphMany('App\Photo', 'imageable');
+    }
 }

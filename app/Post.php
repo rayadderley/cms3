@@ -31,4 +31,14 @@ class Post extends Model
     public function user(){
         return $this->belongsTo('App\User');
     }
+
+    // Used for Polymorphic relationship (referring to Photo)
+    public function photos(){
+        return $this->morphMany('App\Photo', 'imageable');
+    }
+
+    // Many-To-Many Polymorphic relationship with Tag
+    public function tags(){
+        return $this->morphToMany('App\Tag', 'taggable');
+    }
 }

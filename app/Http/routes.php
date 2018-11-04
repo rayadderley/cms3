@@ -3,6 +3,8 @@ use App\Post; // Use the Post Model to enable eloquent.
 use App\User; // Use the User Model to enable eloquent.
 use App\Role;
 use App\Country;
+use App\Photo;
+use App\Tag;
 
 /*
 |--------------------------------------------------------------------------
@@ -246,7 +248,49 @@ Route::get('/findwhere', function(){
     }
  });
 
+// POLYMORPHIC RELATIONSHIP (One Model referring to Multiple Model)
+// Get the Photo (path) of User
+Route::get('/user/photos', function(){
+    $user = User::find(1);
+    foreach($user->photos as $photo){
+        return $photo->path;
+    }
+});
 
+// POLYMORPHIC RELATIONSHIP
+// Get Multiple Photo for Post ID = 1
+Route::get('/post2/{id}/photos', function($id){
+    $post = Post::find($id);
+    foreach($post->photos as $photo){
+        echo $photo->path.'<br/>';
+    }
+});
+
+
+// INVERSE POLYMORPHIC RELATIONSHIP
+// Searching USER/POST based on photo ID
+Route::get('photo/{id}/postuser', function($id){
+    $photo = Photo::findOrFail($id);
+    return $photo->imageable;
+});
+
+// MANY-TO-MANY POLYMORPHIC RELATIONSHIP
+Route::get('/post3/{id}/tag', function($id){
+    $post = Post::find($id);
+    foreach($post->tags as $tag){
+        echo $tag->name;
+    }
+});
+
+// MANY-TO-MANY INVERSE POLYMORPHIC RELATIONSHIP
+// Find Post based on Tag ID
+Route::get('/tag/{id}/post', function($id){
+    $tag = Tag::find($id);
+
+    foreach($tag->posts as $post){
+        echo $post;
+    }
+});
 
  /**
  * ----------------------------------------
